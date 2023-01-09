@@ -1,0 +1,22 @@
+version: '4.15'
+
+# Services
+services:
+
+  # Nginx Service
+  nginx:
+    image: nginx:1.23.3
+    ports:
+      - 80:80
+    volumes:
+      - ./src:/var/www/php
+      - ./_docker/nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - php
+
+  # PHP Service
+  php:
+    image: php:8.1-fpm
+    working_dir: /var/www/php
+    volumes:
+      - ./src:/var/www/php
